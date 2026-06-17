@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Doni Study">
-    <title>Doni Study 📸</title>
+    <title>Doni Study ðŸ“¸</title>
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="icons/icon-192.png">
     <style>
@@ -293,25 +293,25 @@
 <body>
 
     <div class="header">
-        <h1>📸 Doni Study</h1>
-        <p>Tira foto → Entende tudo</p>
+        <h1>ðŸ“¸ Doni Study</h1>
+        <p>Tira foto â†’ Entende tudo</p>
     </div>
 
     <!-- Config -->
     <div class="config-section" id="configSection">
-        <label>⚙️ Configuração da IA</label>
+        <label>âš™ï¸ ConfiguraÃ§Ã£o da IA</label>
         <div class="config-row">
             <select id="provider" onchange="saveConfig()">
-                <option value="gemini">Gemini (grátis)</option>
+                <option value="gemini">Gemini (grÃ¡tis)</option>
                 <option value="openai">OpenAI (pago)</option>
             </select>
             <input type="password" id="apiKey" placeholder="Cole sua chave de API aqui..."
                    oninput="saveConfig()">
         </div>
-        <span class="config-saved" id="configSaved">✅ Salvo no celular!</span>
-        <div class="config-collapse" onclick="toggleConfigHelp()">ℹ️ Onde pegar a chave?</div>
+        <span class="config-saved" id="configSaved">âœ… Salvo no celular!</span>
+        <div class="config-collapse" onclick="toggleConfigHelp()">â„¹ï¸ Onde pegar a chave?</div>
         <div id="configHelp" style="display:none; font-size:0.7rem; padding:8px; opacity:0.7;">
-            <b>Gemini (grátis):</b> aistudio.google.com/apikey<br>
+            <b>Gemini (grÃ¡tis):</b> aistudio.google.com/apikey<br>
             <b>OpenAI (pago):</b> platform.openai.com/api-keys
         </div>
     </div>
@@ -322,18 +322,18 @@
     <!-- Upload -->
     <div class="upload-area" id="uploadArea">
         <div class="camera-btn" onclick="document.getElementById('fileInput').click()">
-            <span class="emoji">📷</span>
+            <span class="emoji">ðŸ“·</span>
             Tirar Foto ou Escolher Imagem
-            <span class="sub">Qualquer assunto: caderno, livro, quadro, código, tela...</span>
+            <span class="sub">Qualquer assunto: caderno, livro, quadro, cÃ³digo, tela...</span>
         </div>
 
         <div class="preview-container" id="previewContainer">
             <img id="previewImg" src="" alt="Preview">
-            <button class="remove-btn" onclick="removeImage()">✕</button>
+            <button class="remove-btn" onclick="removeImage()">âœ•</button>
         </div>
 
         <button class="generate-btn" id="generateBtn" onclick="generateStudy()">
-            🧠 Gerar Material de Estudo
+            ðŸ§  Gerar Material de Estudo
         </button>
 
         <input type="file" id="fileInput" accept="image/*" capture="environment"
@@ -343,7 +343,7 @@
     <!-- Loading -->
     <div class="loading" id="loading">
         <div class="spinner"></div>
-        <p>🧠 Analisando com IA...</p>
+        <p>ðŸ§  Analisando com IA...</p>
         <p style="font-size:0.7rem; margin-top:8px; opacity:0.5" id="loadingTimer">0s</p>
     </div>
 
@@ -351,15 +351,15 @@
     <div class="result-area" id="resultArea">
         <div class="result-content" id="resultContent"></div>
         <div class="result-actions">
-            <button class="btn-copy" onclick="copyResult()">📋 Copiar</button>
-            <button class="btn-share" onclick="shareResult()">📤 Enviar</button>
-            <button class="btn-new" onclick="newStudy()">📷 Nova foto</button>
+            <button class="btn-copy" onclick="copyResult()">ðŸ“‹ Copiar</button>
+            <button class="btn-share" onclick="shareResult()">ðŸ“¤ Enviar</button>
+            <button class="btn-new" onclick="newStudy()">ðŸ“· Nova foto</button>
         </div>
     </div>
 
     <!-- History -->
     <div class="history-section" id="historySection">
-        <h3>📚 Últimos estudos</h3>
+        <h3>ðŸ“š Ãšltimos estudos</h3>
         <div id="historyList"></div>
     </div>
 
@@ -377,47 +377,47 @@
         // ============================================================
         // Prompt universal
         // ============================================================
-        const STUDY_PROMPT = `Você é um tutor educacional expert. Analise esta imagem e crie um material de estudo COMPLETO em português brasileiro.
+        const STUDY_PROMPT = `VocÃª Ã© um tutor educacional expert. Analise esta imagem e crie um material de estudo COMPLETO em portuguÃªs brasileiro.
 
 REGRAS:
-- Identifique o assunto (matemática, física, programação, história, elétrica, etc.)
-- Extraia TODAS as fórmulas, textos, diagramas ou conceitos visíveis
-- Explique cada conceito de forma SIMPLES (como para alguém aprendendo)
+- Identifique o assunto (matemÃ¡tica, fÃ­sica, programaÃ§Ã£o, histÃ³ria, elÃ©trica, etc.)
+- Extraia TODAS as fÃ³rmulas, textos, diagramas ou conceitos visÃ­veis
+- Explique cada conceito de forma SIMPLES (como para alguÃ©m aprendendo)
 - Use linguagem casual e direta
-- Inclua exemplos práticos do dia-a-dia
-- Crie exercícios para praticar
+- Inclua exemplos prÃ¡ticos do dia-a-dia
+- Crie exercÃ­cios para praticar
 
 FORMATO (use Markdown):
 # [Emoji] [Assunto Principal]
 
-## 1. [Tópico]
-**Conceito:** explicação simples e clara
-**Fórmula:** (se houver)
+## 1. [TÃ³pico]
+**Conceito:** explicaÃ§Ã£o simples e clara
+**FÃ³rmula:** (se houver)
 \`\`\`
-fórmula aqui
+fÃ³rmula aqui
 \`\`\`
 **Exemplo resolvido:**
 \`\`\`
 passo a passo
 \`\`\`
-**💡 Dica:** macete para lembrar
-**🌍 Na vida real:** onde isso é usado
+**ðŸ’¡ Dica:** macete para lembrar
+**ðŸŒ Na vida real:** onde isso Ã© usado
 
-## 2. [Próximo tópico]
+## 2. [PrÃ³ximo tÃ³pico]
 ...
 
-## 🏋️ Exercícios
+## ðŸ‹ï¸ ExercÃ­cios
 1. [Pergunta]
    **Resposta:** [...]
 2. [Pergunta]
    **Resposta:** [...]
 
-## 📋 Resumo Rápido
+## ðŸ“‹ Resumo RÃ¡pido
 - ponto 1
 - ponto 2
 - ponto 3
 
-## ➡️ Próximo Passo
+## âž¡ï¸ PrÃ³ximo Passo
 O que estudar depois disso.
 
 Seja claro, direto e use emojis para facilitar a leitura no celular.`;
@@ -514,11 +514,11 @@ Seja claro, direto e use emojis para facilitar a leitura no celular.`;
             const provider = document.getElementById('provider').value;
 
             if (!apiKey) {
-                showError('⚠️ Cole sua chave de API primeiro! Toque em "ℹ️ Onde pegar a chave?" para ajuda.');
+                showError('âš ï¸ Cole sua chave de API primeiro! Toque em "â„¹ï¸ Onde pegar a chave?" para ajuda.');
                 return;
             }
             if (!currentImageB64) {
-                showError('⚠️ Selecione uma imagem primeiro!');
+                showError('âš ï¸ Selecione uma imagem primeiro!');
                 return;
             }
 
@@ -546,7 +546,7 @@ Seja claro, direto e use emojis para facilitar a leitura no celular.`;
 
             } catch (error) {
                 showLoading(false);
-                showError('❌ ' + error.message);
+                showError('âŒ ' + error.message);
             }
         }
 
@@ -568,7 +568,7 @@ Seja claro, direto e use emojis para facilitar a leitura no celular.`;
         // APIs
         // ============================================================
         async function callGemini(apiKey, imageB64) {
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
             const response = await fetch(url, {
                 method: 'POST',
@@ -643,12 +643,12 @@ Seja claro, direto e use emojis para facilitar a leitura no celular.`;
         }
 
         // ============================================================
-        // Ações
+        // AÃ§Ãµes
         // ============================================================
         function copyResult() {
             if (currentResult) {
                 navigator.clipboard.writeText(currentResult)
-                    .then(() => showToast('📋 Copiado!'))
+                    .then(() => showToast('ðŸ“‹ Copiado!'))
                     .catch(() => {
                         // Fallback para celulares mais antigos
                         const ta = document.createElement('textarea');
@@ -657,7 +657,7 @@ Seja claro, direto e use emojis para facilitar a leitura no celular.`;
                         ta.select();
                         document.execCommand('copy');
                         document.body.removeChild(ta);
-                        showToast('📋 Copiado!');
+                        showToast('ðŸ“‹ Copiado!');
                     });
             }
         }
@@ -665,7 +665,7 @@ Seja claro, direto e use emojis para facilitar a leitura no celular.`;
         function shareResult() {
             if (navigator.share && currentResult) {
                 navigator.share({
-                    title: 'Doni Study — Material de Estudo',
+                    title: 'Doni Study â€” Material de Estudo',
                     text: currentResult
                 }).catch(() => copyResult());
             } else {
@@ -685,7 +685,7 @@ Seja claro, direto e use emojis para facilitar a leitura no celular.`;
         }
 
         // ============================================================
-        // Histórico
+        // HistÃ³rico
         // ============================================================
         function saveToHistory(content) {
             const history = JSON.parse(localStorage.getItem('doni_history') || '[]');
@@ -715,7 +715,7 @@ Seja claro, direto e use emojis para facilitar a leitura no celular.`;
                 <div class="history-item">
                     <span class="title" onclick="showHistoryItem(${i})">${item.title}</span>
                     <span class="date">${item.date}</span>
-                    <button class="del-btn" onclick="deleteHistoryItem(${i}); event.stopPropagation();">🗑️</button>
+                    <button class="del-btn" onclick="deleteHistoryItem(${i}); event.stopPropagation();">ðŸ—‘ï¸</button>
                 </div>
             `).join('');
         }
@@ -736,7 +736,7 @@ Seja claro, direto e use emojis para facilitar a leitura no celular.`;
             history.splice(index, 1);
             localStorage.setItem('doni_history', JSON.stringify(history));
             loadHistory();
-            showToast('🗑️ Removido');
+            showToast('ðŸ—‘ï¸ Removido');
         }
 
         // ============================================================
@@ -771,3 +771,4 @@ Seja claro, direto e use emojis para facilitar a leitura no celular.`;
     </script>
 </body>
 </html>
+
